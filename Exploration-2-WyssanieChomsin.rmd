@@ -53,6 +53,9 @@ ggplot(df_without_outlier, aes(x = without_outlier)) +
 
 3. Make at least two observations about the results (the graph) in an unordered list.
 
+* the mean is around 10 which is around the middle of the range 6 to 14
+* the max count is around 6 
+
 4. In the code block below,
 
     a. set the `eval` parameter for the code block to `TRUE`
@@ -63,21 +66,43 @@ ggplot(df_without_outlier, aes(x = without_outlier)) +
         * is a dotted line
     d. replace "Math 32" with your name in the caption
   
-```{r, eval = FALSE}
-ggplot(df_without_outlier, aes(x = without_outlier)) +
+```{r, eval = TRUE}
+ggplot(df_with_outlier, aes(x = with_outlier)) +
   geom_histogram(binwidth = 1, color = "black", fill = "white") +
   geom_vline(aes(xintercept = mean(without_outlier)),
              color = "blue", linetype = "dashed", size = 2) +
+  geom_vline(aes(xintercept = mean(with_outlier)),
+             color = "red", linetype = "dashed", size = 2) +
   labs(title = "Shoe Sizes", subtitle = "Exploring Means",
-       caption = "Math 32", x = "shoe sizes") +
+       caption = "Mannie Chomsin", x = "shoe sizes") +
   theme_minimal() +
   theme(legend.position = "none")
 ```
 
 5. Repeat the previous task in a new code block, but compute the `median` without and with the outlier.
+```{r, eval = TRUE}
+ggplot(df_with_outlier, aes(x = with_outlier)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "white") +
+  geom_vline(aes(xintercept = median(without_outlier)),
+             color = "blue", linetype = "dashed", size = 2) +
+  geom_vline(aes(xintercept = median(with_outlier)),
+             color = "red", linetype = "dashed", size = 1) +
+  labs(title = "Shoe Sizes", subtitle = "Exploring Medians",
+       caption = "Mannie Chomsin", x = "shoe sizes") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
 
 6.  Compute the *difference* between the means from before and after including the outlier.  Compute the *difference* between the medians from before and after including the outlier.
-
+```{r, eval = TRUE}
+mean(with_outlier)-mean(without_outlier)
+```
+```{r, eval = TRUE}
+median(with_outlier)-median(without_outlier)
+```
 7. Make at least two observations about the results (your new graphs) in an unordered list.
+
+* mean increases by about 2.7 when adding the outlier into the calculation
+* median stays about the same, might change around 0.5 when the outlier was including in the calcualtion
 
 8. Finally, `knit` your work as either an HTML or PDF document, and upload that document back into the CatCourses assignment.
