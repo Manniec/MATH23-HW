@@ -1,0 +1,54 @@
+---
+title: "Math 32_-_07_-_Binomial Distribution"
+author: "Derek Sollberger"
+date: "2/5/2020"
+output: html_document
+---
+
+```{r, message = FALSE, warning = FALSE}
+library("ggplot2")
+```
+
+Historically, Squirtle defeats Charizard 32% of the time.  If there are 5 battles, what is the probability that Squirtle wins exactly 2 times?
+
+```{r}
+n <- 5
+k <- 2
+p <- 0.32
+
+dbinom(k, n, p)
+```
+
+```{r}
+probabilities <- dbinom(0:n, n, p)
+df <- data.frame(probabilities)
+
+ggplot(df, aes(x = 0:n, y = probabilities)) +
+  geom_bar(stat = "identity", fill = "#55A3AB") +
+  labs(title = "Probability Mass Function",
+       subtitle = "p = 0.32",
+       caption = "Math 32",
+       x = "wins") +
+  theme_minimal()
+```
+
+---
+
+Historically, Charizard defeats Squirtle 68% of the time.  If there are 5 battles, what is the probability that Charizard wins exactly 3 times?
+
+```{r}
+dbinom(3, 5, 0.68)
+```
+
+```{r}
+probabilities <- dbinom(0:n, n, 0.68)
+df <- data.frame(probabilities)
+
+ggplot(df, aes(x = 0:n, y = probabilities)) +
+  geom_bar(stat = "identity", fill = "#F4B185") +
+  labs(title = "Probability Mass Function",
+       subtitle = "p = 0.68",
+       caption = "Math 32",
+       x = "wins") +
+  theme_minimal()
+```

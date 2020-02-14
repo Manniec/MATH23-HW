@@ -1,0 +1,48 @@
+---
+title: "Introduction-WyssanieChomsin"
+author: "Wyssanie (Mannie) Chomsin"
+date: "1/29/2020"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Computer Science and Engineering Major (CSE)
+My classes in order from most to least difficult this semseter are:
+
+1. WRI 10-56: College Readingn and Composition
+2. CSE 31-01: Computer Organization and Assembly
+5. ENGR 191-02: Engineering Professional Seminar
+3. MATH 32-20: Probablitiy and Statistics
+4. GASP 034A-01: Songwriting
+
+### 2. Why am I Enrolled in MATH 32?
+Over the summer I interned at Seagate Technologies (Thailand) and helped write a R Shiny app for visualizing data on incontrol, out-of-control, false out-of-control, and false incontrol hard drive reader heads from the production line. I mainly helped with the R Shiny part of the project, but participation in the project showed me the large role statistics plays in porduction and in data analysis. I worked on making their pre-made plots interactive, but the people I worked with helped explain to my the statistics behind the plots and why certain plots were important and useful for visualizing certain data and trends. My expereince endowned me with a new found interest in data science, and I am taking MATH 32 to better understand the statistics data scientists use to help engineers and companies produce better products. I hope to finish the class with a better understanding of how statistics has affected and improved our daily lives, and the skills to further pursue education towards a possible data science career.
+
+### 3. A Facinating Science Fact!
+```{r, echo=TRUE}
+#Alan Turing's Bombe isnt considered a truely reprogramable computer. The machine was an electromechanical device, but the Colossus, which was made to break the Lorenz Cipher is considered the first digital electronic computer. 
+```
+
+### 4. Hopes and Goals!
+* Suceed in Schoool
+* Graduate with a degree in Computer Science and Engineering and possibly a minor in either 
+  + Applied Mathematics
+  + Cogs
+  + Econ
+* Get a job at a large company or something
+* Make money
+* Pay back student loans
+* Provide for parents
+* other stuff idk yet :P
+
+### 5. Fears and Obsticals 
+```{fears, echo=FALSE, eval = FALSE}
+#Umm well im scared of spiders and snakes and anything that could kill me i guess Idk. And like i started coding later than alot of people so i guess im scared i won't do as well as them because of my late start. Also kinda scared of people and attention loll.
+```
+
+### 6. Good Song?
+*All Star- Smash Mouth*

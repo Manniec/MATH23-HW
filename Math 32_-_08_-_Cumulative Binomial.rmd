@@ -1,0 +1,75 @@
+---
+title: "Cumulative Binomial Distribution"
+author: "Derek Sollberger"
+date: "2/7/2020"
+output: html_document
+---
+
+There are 32 parking spaces in a row in a UC Merced parking lot.  Suppose that each parking space tends to be occupied about 81 percent of the time.
+
+```{r, message = FALSE, warning = FALSE}
+library("ggplot2")
+```
+
+```{r}
+n <- 32
+p <- 0.19 #open, so 1-p = 0.81 for an occupied parking space
+```
+
+1. What is the probability that exactly 4 of the parking spaces are open?
+
+```{r}
+dbinom(4, n, p)
+```
+
+2. What is the probability that at most 3 of the parking spaces are open?
+
+```{r}
+sum( dbinom(0:3, n, p) )
+```
+
+3. What is the probability that more than 5 of the parking spaces are open?
+
+```{r}
+sum( dbinom(6:32, n, p) )
+```
+
+4. What is the probability that at least one of the parking spaces are open?
+
+```{r}
+1 - dbinom(0, n, p)
+```
+
+
+# Probability Mass Function (PMF)
+
+```{r}
+probs <- dbinom(0:n, n, p)
+df <- data.frame(probs)
+
+ggplot(df, aes(x = 0:n, y = probs)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  theme_minimal() +
+  labs(title = "Binomial Distribution PMF",
+       subtitle = "p = 0.19",
+       caption = "Math 32",
+       x = "open parking spaces",
+       y = "probability")
+```
+
+
+# Cumulative Mass Function (CMF)
+
+```{r}
+probs <- pbinom(0:n, n, p) #note the change here compared to previous example
+df <- data.frame(probs)
+
+ggplot(df, aes(x = 0:n, y = probs)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  theme_minimal() +
+  labs(title = "Binomial Distribution CMF",
+       subtitle = "p = 0.19",
+       caption = "Math 32",
+       x = "open parking spaces",
+       y = "probability")
+```

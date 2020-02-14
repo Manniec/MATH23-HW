@@ -1,0 +1,79 @@
+---
+title: "Exploration 1"
+author: "Wyssanie Chomsin"
+date: "1/26/2020"
+output: 
+  html_document:
+        theme: cerulean
+---
+
+# Math 32
+## Exploration 1
+
+In this `exploration`, you are asked to
+
+* simulate rolling two or three dice
+* graph the results as histograms
+
+1. First,
+    a. Type your name into the author field in the YAML parameters above
+    b. Also save this file while replacing "template" with your full name (be sure to keep the *.rmd file format).
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+```
+
+```{r}
+N  <- 10000
+X1 <- sample(1:6, N, replace = TRUE) #Assigns to variable X1 a vector of length N containing N random integers between 1:6, in this case 10000 elements, replace alows repeated outcomes, in otherwords a disjoint probabilty of getting each number 1 to 6
+X2 <- sample(1:6, N, replace = TRUE) #X2 Is assigned to a different vector of length N containing another series of N random integers between 1 and 6
+
+sums <- X1 + X2 # adds the corresponding elements of vectors X1 and X2 by index and assignes the resulting vector to variable sums.
+
+df <- data.frame(sums) #Creates a data.frame with one column named sums containing the vector sums and saves it to the varible df
+
+#Use ggplot2 library of tidyverse to create and label a histogram of the distribution of the sums sample
+ggplot(df, aes(x = sums)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "white") +
+  labs(title = "Two Dice",
+       subtitle = "Simulation of dice rolls",
+       caption = "Math 32") +
+  scale_x_continuous(name = "total", breaks = 2:12)
+```
+
+2. Demonstrate your understanding about the above example code block above by adding at least 5 comments in your own words.
+
+3. Make at least two observations about the results (the graph) in an unordered list.
+    * Bell Shapped curve
+    * Most common result is 7 (one more than the sides of dice)
+
+4. Now let us try a more complicated setting.  In a new code block,
+    * simulate rolling *three* dice at a time
+    * run the simulation for at least 20,000 iterations
+    * change the $x$-axis tick marks since the sample space is now $\{3, 4, ..., 18\}$
+    * change the color that is *inside* of the rectangles
+    * replace "Math 32" with your name in the caption
+
+```{r}
+N  <- 20000
+X1 <- sample(1:6, N, replace = TRUE) #Assigns to variable X1 a vector of length N containing N random integers between 1:6, in this case 10000 elements, replace alows repeated outcomes, in otherwords a disjoint probabilty of getting each number 1 to 6
+X2 <- sample(1:6, N, replace = TRUE) #X2 Is assigned to a different vector of length N containing another series of N random integers between 1 and 6
+X3 <- sample(1:6, N, replace = TRUE)
+
+sums <- X1 + X2 + X3 # adds the corresponding elements of vectors X1 and X2 by index and assignes the resulting vector to variable sums.
+
+df <- data.frame(sums) #Creates a data.frame with one column named sums containing the vector sums and saves it to the varible df
+
+#Use ggplot2 library of tidyverse to create and label a histogram of the distribution of the sums sample
+ggplot(df, aes(x = sums)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "pink") +
+  labs(title = "Three Dice",
+       subtitle = "Simulation of dice rolls",
+       caption = "Wyssanie (Mannie) Chomsin") +
+  scale_x_continuous(name = "total", breaks = 3:18)
+```
+    
+5. Make at least two observations about your new results (the graph) in an unordered list.
+    * Still a bell curve
+    * Max count increases
+6. Finally, `knit` your work as either an HTML or PDF document, and upload that document back into the CatCourses assignment.
