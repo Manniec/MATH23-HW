@@ -1,0 +1,235 @@
+---
+title: "Math 32:  Exploration 3"
+author: "Mannie Chomsin"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+        theme: cerulean
+---
+
+In this `exploration`, you are asked to
+
+* generate random numbers from continuous distributions
+* observe the visualizations of those number sets
+
+1. First,
+    a. Type your name into the author field in the YAML parameters above
+    b. Also save this file while replacing "template" with your full name (be sure to keep the *.rmd file format).
+
+```{r, message = FALSE, warning = FALSE}
+library("ggplot2")
+```
+
+# Uniform Distribution
+
+2. Demonstrate your understanding about the example code block below by adding at least 5 comments in the code block in your own words.
+
+```{r}
+N <- 1000   #assigns variable N value 1000
+a <- 1      #assigns variable a value 1
+b <- 32     #assigns variable b value 32
+data <- runif(N, a, b) #creates iteratible of 1000 elements randomly between 1 and 32
+df <- data.frame(data) #makes dataframe with iteratible data as column and calls it df
+
+ggplot(df, aes(y = data)) +   #Creates boxplot with data from df. 
+  coord_flip() +
+  geom_boxplot() +
+  labs(title = paste0("Uniform Distribution U(", a, ",", b, ")"), #label it "Uniform Distribution"
+       subtitle = "boxplot",
+       caption = "Math 32") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  ylim(0,50) #Limit y axis to between 0 and 50
+
+ggplot(df, aes(x = data)) +   #Creates graph of density by number
+  geom_density(kernel = "gaussian") +
+  labs(title = paste0("Uniform Distribution U(", a, ",", b, ")"),
+       subtitle = "density plot",
+       caption = "Math 32") +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(0,50)  #Limit x axis to between 0 and 50
+```
+
+3. Repeat step 2 in a new code block, but with different values of $a$ and $b$ in $0 < a < b < 50$
+```{r}
+N <- 1000   #assigns variable N value 1000
+a <- 25      #assigns variable a value 30
+b <- 49      #assigns variable b value 54
+data <- runif(N, a, b) #creates iteratible of 1000 elements randomly between 1 and 32
+df <- data.frame(data) #makes dataframe with iteratible data as column and calls it df
+
+ggplot(df, aes(y = data)) +   #Creates boxplot with data from df. 
+  coord_flip() +
+  geom_boxplot() +
+  labs(title = paste0("Uniform Distribution U(", a, ",", b, ")"), #label it "Uniform Distribution"
+       subtitle = "boxplot",
+       caption = "Math 32") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  ylim(0,50) #Limit y axis to between 0 and 50
+
+ggplot(df, aes(x = data)) +   #Creates graph of density by number
+  geom_density(kernel = "gaussian") +
+  labs(title = paste0("Uniform Distribution U(", a, ",", b, ")"),
+       subtitle = "density plot",
+       caption = "Math 32") +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(0,50)  #Limit x axis to between 0 and 50
+```
+4. Make at least two observations about the results (the graphs) in an unordered list.
+
+*Changine the range the random numbers are sampled from moves the mean and range of the function
+*The density can be larger than the biggest and lowest numbers
+
+# Normal Distribution
+
+5. Make adjustments to the code below to repeat what was done above with the uniform distribution, but this time looking at the normal distribution (hint: use the `rnorm` command).
+
+```{r}
+N <- 1000
+a <- 1
+b <- 32
+data <- rnorm(N, a, b)
+df <- data.frame(data)
+
+ggplot(df, aes(y = data)) +
+  coord_flip() +
+  geom_boxplot() +
+  labs(title = paste0("Normal Distribution N(", a, ",", b, ")"),
+       subtitle = "boxplot",
+       caption = "Math 32") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  ylim(0,50)
+
+ggplot(df, aes(x = data)) +
+  geom_density() + 
+  labs(title = paste0("Normal Distribution N(", a, ",", b, ")"),
+       subtitle = "density plot",
+       caption = "Math 32") +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(0,50)
+```
+
+6. Repeat step 5 in a new code block, but with different values of $a$ and $b$ in $0 < a < b < 50$
+```{r}
+N <- 1000
+a <- 20
+b <- 40
+data <- rnorm(N, a, b)
+df <- data.frame(data)
+
+ggplot(df, aes(y = data)) +
+  coord_flip() +
+  geom_boxplot() +
+  labs(title = paste0("Normal Distribution N(", a, ",", b, ")"),
+       subtitle = "boxplot",
+       caption = "Math 32") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  ylim(0,50)
+
+ggplot(df, aes(x = data)) +
+  geom_density() + 
+  labs(title = paste0("Normal Distribution N(", a, ",", b, ")"),
+       subtitle = "density plot",
+       caption = "Math 32") +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(0,50)
+```
+7. Make at least two observations about the results (the graphs) in an unordered list.
+
+* numbers no longer contained within 0 to 50
+* density smaller
+# Exponential Distribution
+
+8. Make adjustments to the code below to repeat what was done above with the uniform distribution, but this time looking at the exponential distribution with $\lambda = \frac{1}{\mu}$ (hint: use the `rexp` command).
+
+```{r}
+N <- 1000
+mu <- 32
+data <- rexp(N,mu)
+df <- data.frame(data)
+
+ggplot(df, aes(y = data)) +
+  coord_flip() +
+  geom_boxplot() +
+  labs(title = paste0("Exponential Distribution E(1/", mu, ")"),
+       subtitle = "boxplot",
+       caption = "Math 32") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  ylim(-.1,.3)
+
+ggplot(df, aes(x = data)) +
+  geom_density() +
+  labs(title = paste0("Exponential Distribution E(1/", mu, ")"),
+       subtitle = "density plot",
+       caption = "Math 32") +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(-.1,.3)
+```
+
+9. Repeat step 8 in a new code block, but with different a value of $\mu$ in $0 < \mu < 50$
+```{r}
+N <- 1000
+mu <- 40
+data <- rexp(N,mu)
+df <- data.frame(data)
+
+ggplot(df, aes(y = data)) +
+  coord_flip() +
+  geom_boxplot() +
+  labs(title = paste0("Exponential Distribution E(1/", mu, ")"),
+       subtitle = "boxplot",
+       caption = "Math 32") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  ylim(-.1,.3)
+
+ggplot(df, aes(x = data)) +
+  geom_density() +
+  labs(title = paste0("Exponential Distribution E(1/", mu, ")"),
+       subtitle = "density plot",
+       caption = "Math 32") +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(-.1,.3)
+```
+10. Make at least two observations about the results (the graphs) in an unordered list.
+
+* increasing mu makes the max data values smaller 
+* increasing mu makes the max density larger
+
+11.  Verify that you have 12 graphs in total (6 boxplots and 6 density plots), and replace "Math 32" with your full name in all of the graphs.
+
+12. Finally, `knit` your work as either an HTML or PDF document, and upload that document back into the CatCourses assignment.
