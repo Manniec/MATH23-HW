@@ -1,0 +1,141 @@
+---
+title: "Exploration 4:  Estimators"
+author: "Mannie Chomsin"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r, message = FALSE, warning = FALSE}
+library("ggplot2")
+
+# This randomly generates 25 random numbers between zero and one
+one_sample <- runif(25)
+
+# Note that the population variance formula does not have "n - 1"
+bad_var <- function(x){
+  N <- length(x)
+  sigma_squared <- sum( (x - mean(x))^2 ) / N
+  sigma_squared #return this number
+}
+
+# Note that the sample variance formula does have "n - 1"
+good_var <- function(x){
+  n <- length(x)
+  s_squared <- sum( (x - mean(x))^2 ) / (n-1)
+  s_squared #return this number 
+}
+```
+
+## Example
+
+Here we will run a simulation to empirically show that the *population mean*
+$$\mu = \displaystyle\frac{1}{N} \sum_{i = 1}^{N} x_{i}$$
+is **unbiased** when applied to samples over the $U(0,1)$ uniform distribution (whose true population mean is $\mu = \displaystyle\frac{1}{2}$).
+
+```{r, eval = TRUE}
+true_mean <- 1/2
+
+simulation <- replicate(10000, mean( runif(25) )) #generates 25 random numbers btw 0-1 then means them, repeat 1000 times (mean of means)
+df <- data.frame(simulation)
+
+ggplot(df, aes(x = simulation)) +
+  geom_density(color = "blue") + 
+  geom_vline(xintercept = true_mean, color = "red") +
+  labs(title = "Sample Distribution for the Sample Mean",
+       subtitle = "Blue: sample distribution, Red: statistic of interest",
+       caption = "Math 32")
+```
+
+Since the sample distribution empirically does seem to line up with the population mean, we say that the sample mean $\bar{x}$ is *unbiased*.
+
+---
+
+Repeat the simulation above, but with the an $Exp(1/32)$ distribution and the following estimators:
+
+1.  sample median `median()`
+```{r, eval = TRUE}
+true_median <- log(2)*32 #median of continuous exponential distribution ln(2) divided by rate
+
+simulation <- replicate(10000, median( rexp(25,1/32) )) #rexp is exponential distribution 
+df <- data.frame(simulation)
+
+ggplot(df, aes(x = simulation)) +
+  geom_density(color = "blue") + 
+  geom_vline(xintercept = true_median, color = "red") +
+  labs(title = "Sample Distribution for the Sample Median",
+       subtitle = "Blue: sample distribution, Red: statistic of interest",
+       caption = "Math 32")
+```
+
+This is probably unbiased of and estimator because the median is close to the middle/peak of the bell curve
+
+
+2.  population variance `bad_var()`
+```{r, eval = TRUE}
+true_var <- 32^2 #variance of exp distribution is 1/(lamda^2)
+
+simulation <- replicate(10000, bad_var( rexp(25,1/32) )) 
+df <- data.frame(simulation)
+
+ggplot(df, aes(x = simulation)) +
+  geom_density(color = "blue") + 
+  geom_vline(xintercept = true_var, color = "red") +
+  labs(title = "Sample Distribution for the Population Variance",
+       subtitle = "Blue: sample distribution, Red: statistic of interest",
+       caption = "Math 32")
+```
+
+This is a biased estimator because the true variance and the peak of the distribution are kind of distant, theres an over estimate. 
+
+
+3.  sample variance `good_var()`
+```{r, eval = TRUE}
+true_var <- 32^2 #variance of exp distribution is 1/(lamda^2)
+
+good_var <- function(x){
+  n <- length(x)
+  s_squared <- sum( (x - mean(x))^2 ) / (n-1)
+  s_squared #return this number 
+}
+
+simulation <- replicate(10000, good_var( rexp(25,1/32) )) 
+df <- data.frame(simulation)
+
+ggplot(df, aes(x = simulation)) +
+  geom_density(color = "blue") + 
+  geom_vline(xintercept = true_var, color = "red") +
+  labs(title = "Sample Distribution for the Sample Variance",
+       subtitle = "Blue: sample distribution, Red: statistic of interest",
+       caption = "Math 32")
+```
+
+Unbiased estimator because the peak of the curve/middle of the area of the curve and the red prediction line are closer.
+
+
+4.  the sample standard deviation from `good_var()`
+```{r, eval = TRUE}
+true_sd <- 32 #standard deviation for exp is mean which is 1/lambda
+
+simulation <- replicate(10000, sqrt(  good_var( rexp(25,1/32) )  )) 
+df <- data.frame(simulation)
+
+ggplot(df, aes(x = simulation)) +
+  geom_density(color = "blue") + 
+  geom_vline(xintercept = true_sd, color = "red") +
+  labs(title = "Sample Distribution for the Sample SD",
+       subtitle = "Blue: sample distribution, Red: statistic of interest",
+       caption = "Math 32")
+```
+
+Unbiased estimator because the peak of the curve and the red prediction are pretty close
+
+
+---
+
+After each simulation, make an educated guess as to whether each estimator is biased or unbiased.
+
+---
+
+Verify that you have 5 graphs in total and replace "Math 32" with your full name in all of the graphs.
+
+Finally, `knit` your work as either an HTML or PDF document, and upload that document back into the CatCourses assignment.
